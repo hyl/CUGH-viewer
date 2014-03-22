@@ -2,7 +2,7 @@ app = require('express')()
 , server = require('http').createServer(app)
 , io = require('socket.io').listen(server);
 
-server.listen(3000);
+server.listen(80);
 
 require('./routes.js');
 
