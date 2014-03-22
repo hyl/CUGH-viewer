@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>#CleanUpGithub - Issue Tracker</title>
+  </head>
+  <style>
+    * {
+      font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+    }
+
+    body {
+      background-color: #a3a3a3;
+      background-image: url(http://f.cl.ly/items/1E1e3N0Q1i2k263B3Y2l/background.jpg);
+    }
+
+    h1 {
+      font-size: 72px;
+    }
+
+    .fifty {
+      width: 50%;
+      float: left;
+    }
+
+    .logo {
+      width: 300px;
+    }
+
+    .number {
+      font-size: 96px;
+    }
+
+    @media (max-width: 999px) {
+      .fifty {
+        width: 100%;
+      }
+
+      h1 {
+          font-size: 58px;
+
+      }
+    }
+  </style>
+  <body>
+    <img class="logo" src="http://ethicalcode.github.io/images/eclogo1.png" alt="Ethical Code Logo">
+    <h1>There are currently:</h1>
+    <div class="left fifty">
+      <h2><span class="number" id="open">...</span><br/>Open Requests</h2>
+    </div>
+    <div class="right fifty">
+      <h2><span class="number" id="closed">...</span><br />Closed Requests</h2>
+    </div>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(document).ready(function() {
+      var socket = io.connect('http://localhost');
+      socket.on('news', function (data) {
+        console.log('CONNECTED');
+      });
+
+      socket.on('openRequests', function(data) {
+        $('#open').html(data.data.total_count);
+      })
+
+      socket.on('closedRequests', function(data) {
+        console.log(data);
+        $('#closed').html(data.data.total_count);
+      })
+    })
+  </script>
+  </body>
+</html>
